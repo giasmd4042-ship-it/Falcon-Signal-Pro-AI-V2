@@ -10,7 +10,6 @@ from src.analysis.macd_analyzer import MACDAnalyzer
 from src.analysis.signal_strength import SignalStrength
 from src.analysis.signal_filter import SignalFilter
 from src.analysis.volume_analyzer import VolumeAnalyzer
-from src.analysis.breakout_detector import BreakoutDetector
 
 
 class SignalGenerator:
@@ -25,7 +24,6 @@ class SignalGenerator:
         self.strength = SignalStrength()
         self.filter = SignalFilter()
         self.volume = VolumeAnalyzer()
-        self.breakout = BreakoutDetector()
 
     def generate(self, data):
 
@@ -34,7 +32,6 @@ class SignalGenerator:
         rsi = self.rsi.detect(data)
         macd = self.macd.detect(data)
         volume = self.volume.detect(data)
-        breakout = self.breakout.detect(data)
 
         bullish = 0
         bearish = 0
@@ -92,7 +89,6 @@ class SignalGenerator:
             "rsi": rsi,
             "macd": macd,
             "volume": volume,
-            "breakout": breakout,
             "signal": signal,
             "confidence": confidence,
             "strength": strength,

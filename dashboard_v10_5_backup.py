@@ -59,8 +59,7 @@ mtf_result = mtf.analyze(symbol)
 ai_score = ai.calculate(
     result=result,
     pattern=pattern,
-    volume=result["volume"]["volume"],
-    breakout=result["breakout"]
+    volume=result["volume"]["volume"]
 )
 
 st.subheader("Analysis")
