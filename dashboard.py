@@ -1,4 +1,4 @@
-import pandas as pd
+﻿import pandas as pd
 import streamlit as st
 
 from src.dashboard.theme import apply_theme
@@ -8,6 +8,8 @@ from src.dashboard.charts import show_candlestick_chart
 from src.dashboard.history import show_trade_history
 from src.dashboard.scanner import show_market_scanner
 from src.dashboard.ai_card import show_ai_card
+from src.dashboard.multi_timeframe_card import show_multi_timeframe
+from src.dashboard.status_card import show_status
 
 from src.analysis.market_data import MarketData
 from src.analysis.signal_generator import SignalGenerator
@@ -16,6 +18,7 @@ from src.analysis.candlestick_analyzer import CandlestickAnalyzer
 from src.analysis.atr_analyzer import ATRAnalyzer
 from src.analysis.take_profit import TakeProfitCalculator
 from src.analysis.ai_score_engine import AIScoreEngine
+from src.analysis.multi_timeframe import MultiTimeframeAnalyzer
 
 apply_theme()
 
@@ -28,8 +31,9 @@ candle = CandlestickAnalyzer()
 atr = ATRAnalyzer()
 tp = TakeProfitCalculator()
 ai = AIScoreEngine()
+mtf = MultiTimeframeAnalyzer()
 
-data = market.get_data(symbol)
+data = market.get_data(symbol=symbol, interval=timeframe)
 
 result = generator.generate(data)
 levels = sr.detect(data)
@@ -50,6 +54,7 @@ else:
 
 trade = tp.calculate(entry, stop)
 
+mtf_result = mtf.analyze(symbol)
 ai_score = ai.calculate(
     result=result,
     pattern=pattern
@@ -64,6 +69,8 @@ st.write("MACD:", result["macd"])
 st.write("Pattern:", pattern)
 
 st.divider()
+
+show_status(result["signal"], result["confidence"])
 
 show_metrics(result, trade)
 
@@ -94,5 +101,7 @@ st.divider()
 show_market_scanner()
 
 st.divider()
+show_multi_timeframe(mtf_result)
+st.divider()
 
-st.success("? Falcon Signal Pro AI V6 Loaded Successfully")
+st.success("Falcon Signal Pro AI V8 Ready")

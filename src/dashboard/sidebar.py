@@ -7,7 +7,7 @@ import streamlit as st
 
 def build_sidebar():
 
-    st.sidebar.header("? Settings")
+    st.sidebar.header("Settings")
 
     symbol = st.sidebar.selectbox(
         "Select Symbol",

@@ -8,7 +8,7 @@ import streamlit as st
 
 def show_ai_card(score):
 
-    st.subheader("?? AI Score")
+    st.subheader("AI Score")
 
     col1, col2, col3 = st.columns(3)
 

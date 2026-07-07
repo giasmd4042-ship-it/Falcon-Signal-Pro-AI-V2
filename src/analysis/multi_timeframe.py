@@ -1,5 +1,5 @@
-"""
-Falcon Signal Pro AI V2.0
+﻿"""
+Falcon Signal Pro AI V9
 Multi Timeframe Analyzer
 """
 
@@ -15,44 +15,45 @@ class MultiTimeframeAnalyzer:
 
     def analyze(self, symbol):
 
-        frames = {
-            "15m": ("15m", "5d"),
-            "1h": ("1h", "7d"),
-            "4h": ("4h", "30d"),
-            "1d": ("1d", "6mo"),
-        }
+        timeframes = [
+            "15m",
+            "1h",
+            "4h",
+            "1d"
+        ]
 
         result = {}
 
         bullish = 0
         bearish = 0
 
-        for name, (interval, period) in frames.items():
+        for tf in timeframes:
 
-            data = self.market.get_data(
-                symbol,
-                interval=interval,
-                period=period
-            )
+            try:
+                data = self.market.get_data(
+                    symbol=symbol,
+                    interval=tf
+                )
 
-            trend = self.trend.detect_trend(data)
+                trend = self.trend.detect_trend(data)
 
-            result[name] = trend
+                result[tf] = trend
 
-            if trend == "BULLISH":
-                bullish += 1
-            elif trend == "BEARISH":
-                bearish += 1
+                if trend == "BULLISH":
+                    bullish += 1
+                elif trend == "BEARISH":
+                    bearish += 1
+
+            except Exception:
+                result[tf] = "ERROR"
 
         if bullish > bearish:
             overall = "BULLISH"
         elif bearish > bullish:
             overall = "BEARISH"
         else:
-            overall = "SIDEWAYS"
+            overall = "NEUTRAL"
 
         result["overall"] = overall
-        result["score"] = f"{max(bullish, bearish)}/4"
 
         return result
-
