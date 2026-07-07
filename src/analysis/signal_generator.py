@@ -1,4 +1,4 @@
-"""
+﻿"""
 Falcon Signal Pro AI V7
 Professional Signal Generator
 """
@@ -9,6 +9,7 @@ from src.analysis.rsi_analyzer import RSIAnalyzer
 from src.analysis.macd_analyzer import MACDAnalyzer
 from src.analysis.signal_strength import SignalStrength
 from src.analysis.signal_filter import SignalFilter
+from src.analysis.volume_analyzer import VolumeAnalyzer
 
 
 class SignalGenerator:
@@ -22,6 +23,7 @@ class SignalGenerator:
 
         self.strength = SignalStrength()
         self.filter = SignalFilter()
+        self.volume = VolumeAnalyzer()
 
     def generate(self, data):
 
@@ -29,6 +31,7 @@ class SignalGenerator:
         ema = self.ema.detect(data)
         rsi = self.rsi.detect(data)
         macd = self.macd.detect(data)
+        volume = self.volume.detect(data)
 
         bullish = 0
         bearish = 0
@@ -85,6 +88,7 @@ class SignalGenerator:
             "ema": ema,
             "rsi": rsi,
             "macd": macd,
+            "volume": volume,
             "signal": signal,
             "confidence": confidence,
             "strength": strength,
