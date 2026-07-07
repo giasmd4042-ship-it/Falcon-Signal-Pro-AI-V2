@@ -1,11 +1,11 @@
 """
-Falcon Signal Pro AI V2.0
-AI Score Engine V3
+Falcon Signal Pro AI V2
+AI Score Engine
 """
 
 class AIScoreEngine:
 
-    def calculate(self, result, pattern, volume, breakout):
+    def calculate(self, result, pattern, volume="NORMAL VOLUME", breakout="NO BREAKOUT"):
 
         score = 0
         max_score = 8
@@ -28,22 +28,24 @@ class AIScoreEngine:
         if volume == "HIGH VOLUME":
             score += 1
 
-        if breakout == "BULLISH BREAKOUT":
+        if breakout != "NO BREAKOUT":
             score += 1
 
         if result["signal"] == "BUY":
             score += 1
 
-        percent = round((score / max_score) * 100)
+        percent = int((score / max_score) * 100)
 
-        if percent >= 85:
+        if percent >= 90:
             grade = "A+"
-        elif percent >= 70:
+        elif percent >= 75:
             grade = "A"
-        elif percent >= 55:
+        elif percent >= 60:
             grade = "B"
-        else:
+        elif percent >= 40:
             grade = "C"
+        else:
+            grade = "D"
 
         return {
             "score": score,
