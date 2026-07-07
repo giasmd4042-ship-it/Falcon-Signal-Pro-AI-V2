@@ -1,6 +1,6 @@
-"""
-Falcon Signal Pro AI V2.0
-Volume Analyzer
+﻿"""
+Falcon Signal Pro AI V10
+Smart Volume Analyzer
 """
 
 import pandas as pd
@@ -10,21 +10,40 @@ class VolumeAnalyzer:
 
     def detect(self, data: pd.DataFrame):
 
-        if data.empty or len(data) < 20:
-            return "NO DATA"
+        if data.empty or "Volume" not in data.columns:
+            return {
+                "volume": "UNKNOWN",
+                "ratio": 0,
+                "strength": 0
+            }
 
         volume = data["Volume"]
 
         if isinstance(volume, pd.DataFrame):
             volume = volume.iloc[:, 0]
 
-        avg_volume = volume.tail(20).mean()
-        current_volume = float(volume.iloc[-1])
+        avg_volume = volume.rolling(20).mean().iloc[-1]
+        current_volume = volume.iloc[-1]
 
-        if current_volume > avg_volume * 1.5:
-            return "HIGH VOLUME"
+        if avg_volume == 0 or pd.isna(avg_volume):
+            ratio = 0
+        else:
+            ratio = round(float(current_volume / avg_volume), 2)
 
-        elif current_volume < avg_volume * 0.5:
-            return "LOW VOLUME"
+        if ratio >= 1.5:
+            status = "HIGH VOLUME"
+            strength = 100
 
-        return "NORMAL VOLUME"
+        elif ratio >= 0.8:
+            status = "NORMAL VOLUME"
+            strength = 60
+
+        else:
+            status = "LOW VOLUME"
+            strength = 30
+
+        return {
+            "volume": status,
+            "ratio": ratio,
+            "strength": strength
+        }
