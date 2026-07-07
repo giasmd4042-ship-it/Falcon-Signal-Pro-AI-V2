@@ -10,6 +10,7 @@ from src.dashboard.scanner import show_market_scanner
 from src.dashboard.ai_card import show_ai_card
 from src.dashboard.multi_timeframe_card import show_multi_timeframe
 from src.dashboard.status_card import show_status
+from src.dashboard.volume_card import show_volume_card
 
 from src.analysis.market_data import MarketData
 from src.analysis.signal_generator import SignalGenerator
@@ -37,8 +38,8 @@ data = market.get_data(symbol=symbol, interval=timeframe)
 
 result = generator.generate(data)
 levels = sr.detect(data)
-pattern = candle.detect(data)
 atr_data = atr.detect(data)
+pattern = candle.detect(data)
 
 close = data["Close"]
 
@@ -57,7 +58,8 @@ trade = tp.calculate(entry, stop)
 mtf_result = mtf.analyze(symbol)
 ai_score = ai.calculate(
     result=result,
-    pattern=pattern
+    pattern=pattern,
+    volume=result["volume"]["volume"]
 )
 
 st.subheader("Analysis")
@@ -66,7 +68,6 @@ st.write("Trend:", result["trend"])
 st.write("EMA:", result["ema"])
 st.write("RSI:", result["rsi"])
 st.write("MACD:", result["macd"])
-st.write("Pattern:", pattern)
 
 st.divider()
 
@@ -77,6 +78,7 @@ show_metrics(result, trade)
 st.divider()
 
 show_ai_card(ai_score)
+show_volume_card(result["volume"])
 
 st.divider()
 
