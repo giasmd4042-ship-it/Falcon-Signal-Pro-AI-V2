@@ -13,7 +13,6 @@ from src.dashboard.status_card import show_status
 from src.dashboard.volume_card import show_volume_card
 from src.dashboard.breakout_card import show_breakout_card
 from src.dashboard.risk_card import show_risk_card
-from src.dashboard.risk_reward_card import show_risk_reward_card
 
 from src.analysis.market_data import MarketData
 from src.analysis.signal_generator import SignalGenerator
@@ -24,7 +23,6 @@ from src.analysis.take_profit import TakeProfitCalculator
 from src.analysis.ai_score_engine import AIScoreEngine
 from src.analysis.multi_timeframe import MultiTimeframeAnalyzer
 from src.analysis.smart_risk_manager import SmartRiskManager
-from src.analysis.risk_reward_engine import RiskRewardEngine
 
 apply_theme()
 
@@ -39,7 +37,6 @@ tp = TakeProfitCalculator()
 ai = AIScoreEngine()
 mtf = MultiTimeframeAnalyzer()
 risk_manager = SmartRiskManager()
-rr_engine = RiskRewardEngine()
 
 data = market.get_data(symbol=symbol, interval=timeframe)
 
@@ -61,12 +58,6 @@ else:
     stop = atr_data["sell_sl"]
 
 trade = tp.calculate(entry, stop)
-
-rr = rr_engine.calculate(
-    entry=entry,
-    stop_loss=stop,
-    take_profit=trade["take_profit"]
-)
 
 risk = risk_manager.calculate(
     balance=10000,
@@ -102,7 +93,6 @@ show_ai_card(ai_score)
 show_volume_card(result["volume"])
 show_breakout_card(result["breakout"])
 show_risk_card(risk)
-show_risk_reward_card(rr)
 
 st.divider()
 
