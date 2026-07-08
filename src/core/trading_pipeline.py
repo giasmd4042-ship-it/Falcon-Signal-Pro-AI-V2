@@ -12,6 +12,7 @@ from src.portfolio.performance_analytics import performance_analytics
 
 from src.monitoring.system_logger import system_logger
 from src.monitoring.alert_manager import alert_manager
+from src.security.safety_guard import safety_guard
 
 
 
@@ -108,6 +109,19 @@ class TradingPipeline:
                 1,
                 OrderType.MARKET
             )
+
+
+            if not safety_guard.allow_trade():
+
+                alert_manager.send(
+                    "WARNING",
+                    "Trade Blocked By Safety Guard"
+                )
+
+                return {
+                    "signal": signal,
+                    "order": "SAFETY_BLOCKED"
+                }
 
 
             result = self.engine.execute(order)
