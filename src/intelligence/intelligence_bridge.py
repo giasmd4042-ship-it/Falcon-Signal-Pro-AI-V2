@@ -36,7 +36,7 @@ class IntelligenceBridge:
         strategy = strategy_optimizer.optimize(strategies)
 
         risk = adaptive_risk.calculate(
-            account_balance=market_state.get("balance", 10000),
+            balance=market_state.get("balance", 10000),
             risk_percent=market_state.get("risk_percent", 2),
             entry=market_state.get("entry", 0),
             atr=market_state.get("atr", 100),
@@ -60,3 +60,4 @@ class IntelligenceBridge:
 
 
 intelligence_bridge = IntelligenceBridge()
+
