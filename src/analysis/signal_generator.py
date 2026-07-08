@@ -1,6 +1,6 @@
 ﻿"""
-Falcon Signal Pro AI V7
-Professional Signal Generator
+Falcon Signal Pro AI V3.25
+Intelligent Signal Generator
 """
 
 from src.analysis.trend_analyzer import TrendAnalyzer
@@ -11,6 +11,8 @@ from src.analysis.signal_strength import SignalStrength
 from src.analysis.signal_filter import SignalFilter
 from src.analysis.volume_analyzer import VolumeAnalyzer
 from src.analysis.breakout_detector import BreakoutDetector
+
+from src.intelligence.intelligence_bridge import IntelligenceBridge
 
 
 class SignalGenerator:
@@ -26,6 +28,9 @@ class SignalGenerator:
         self.filter = SignalFilter()
         self.volume = VolumeAnalyzer()
         self.breakout = BreakoutDetector()
+
+        self.intelligence = IntelligenceBridge()
+
 
     def generate(self, data):
 
@@ -47,11 +52,13 @@ class SignalGenerator:
             elif value == "BEARISH":
                 bearish += 1
 
+
         if "OVERSOLD" in str(rsi):
             bullish += 1
 
         elif "OVERBOUGHT" in str(rsi):
             bearish += 1
+
 
         total = bullish + bearish
 
@@ -59,6 +66,7 @@ class SignalGenerator:
             int(max(bullish, bearish) / total * 100)
             if total else 0
         )
+
 
         if bullish > bearish:
             signal = "BUY"
@@ -68,6 +76,7 @@ class SignalGenerator:
 
         else:
             signal = "HOLD"
+
 
         strength = self.strength.calculate(
             trend=trend,
@@ -86,6 +95,21 @@ class SignalGenerator:
             strength_score=strength["score"],
         )
 
+
+        intelligence = self.intelligence.process(
+            market_state={
+                "trend": trend,
+                "ema": ema,
+                "rsi": rsi,
+                "macd": macd,
+                "volume": volume,
+                "breakout": breakout,
+                "signal": signal,
+                "confidence": confidence,
+            }
+        )
+
+
         return {
             "trend": trend,
             "ema": ema,
@@ -97,5 +121,8 @@ class SignalGenerator:
             "confidence": confidence,
             "strength": strength,
             "filter": validation,
+            "intelligence": intelligence,
         }
 
+
+signal_generator = SignalGenerator()
