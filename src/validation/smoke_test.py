@@ -1,52 +1,94 @@
-from datetime import datetime
-
 from src.core.trading_pipeline import pipeline
-from src.dashboard.monitoring_dashboard import monitoring_dashboard
+from src.dashboard.dashboard_service import dashboard
 from src.core.logger import logger
+
+from src.validation.v335_validator import v335_validator
 
 
 class SmokeTest:
 
+
     def run(self):
 
-        results = {}
+        result = {}
+
 
         try:
+
             pipeline_result = pipeline.run()
-            results["pipeline"] = "PASS"
-            results["signal"] = pipeline_result.get("signal", {})
+
+            result["pipeline"] = "PASS"
+            result["signal"] = pipeline_result.get("signal")
+
+
         except Exception as e:
-            results["pipeline"] = "FAIL"
-            results["pipeline_error"] = str(e)
+
+            result["pipeline"] = "FAIL"
+            result["pipeline_error"] = str(e)
+
+
 
         try:
-            dashboard_result = monitoring_dashboard.view()
-            results["dashboard"] = "PASS"
-            results["dashboard_status"] = dashboard_result.get("status", {})
+
+            status = dashboard.status()
+
+            result["dashboard"] = "PASS"
+            result["dashboard_status"] = status
+
+
         except Exception as e:
-            results["dashboard"] = "FAIL"
-            results["dashboard_error"] = str(e)
+
+            result["dashboard"] = "FAIL"
+            result["dashboard_error"] = str(e)
+
+
 
         try:
-            logger.info("V3.33 Smoke Test Completed")
-            results["logger"] = "PASS"
-        except Exception as e:
-            results["logger"] = "FAIL"
-            results["logger_error"] = str(e)
 
-        results["overall"] = (
+            logger.info("V3.35 Smoke Test")
+
+            result["logger"] = "PASS"
+
+
+        except Exception as e:
+
+            result["logger"] = "FAIL"
+            result["logger_error"] = str(e)
+
+
+
+        try:
+
+            runtime = v335_validator.validate()
+
+            result["runtime_validation"] = runtime
+
+
+        except Exception as e:
+
+            result["runtime_validation"] = {
+                "status": "FAIL",
+                "error": str(e)
+            }
+
+
+
+        result["overall"] = (
             "PASS"
-            if all(
-                results.get(x) == "PASS"
-                for x in ["pipeline", "dashboard", "logger"]
-            )
+            if
+            result.get("pipeline") == "PASS"
+            and result.get("dashboard") == "PASS"
+            and result.get("logger") == "PASS"
+            and result["runtime_validation"].get("status") == "PASS"
             else "FAIL"
         )
 
-        results["timestamp"] = datetime.utcnow().isoformat()
-        results["engine"] = "V3.33"
 
-        return results
+        result["engine"] = "V3.35"
+
+
+        return result
+
 
 
 smoke_test = SmokeTest()

@@ -1,7 +1,7 @@
-from src.data.data_factory import data_factory
+from src.data.paper_market_data import PaperMarketData
 from src.signals.trend_following import TrendFollowingSignal
 
-from src.execution.broker_factory import broker_factory
+from src.execution.paper_broker import PaperBroker
 from src.execution.order_execution_engine import OrderExecutionEngine
 from src.execution.order import Order, OrderSide, OrderType
 
@@ -21,10 +21,10 @@ class TradingPipeline:
 
     def __init__(self):
 
-        self.market = data_factory.create()
+        self.market = PaperMarketData()
         self.signal = TrendFollowingSignal()
 
-        self.broker = broker_factory.create()
+        self.broker = PaperBroker()
         self.engine = OrderExecutionEngine(self.broker)
 
         self.risk = ExecutionRiskGuard()
