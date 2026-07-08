@@ -1,16 +1,16 @@
-﻿from datetime import datetime
+from datetime import datetime
 
 from src.portfolio.trade_journal import trade_journal
 
 
 class PerformanceAnalytics:
     """
-    Falcon Signal Pro AI V3.31.2
+    Falcon Signal Pro AI V3.32.x
     AI Performance Analytics Engine
     """
 
     def __init__(self):
-        self.version = "V3.31.2"
+        self.version = "V3.32.x"
 
 
     def analyze(self):
