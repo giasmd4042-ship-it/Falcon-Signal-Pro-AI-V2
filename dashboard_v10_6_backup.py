@@ -11,7 +11,6 @@ from src.dashboard.ai_card import show_ai_card
 from src.dashboard.multi_timeframe_card import show_multi_timeframe
 from src.dashboard.status_card import show_status
 from src.dashboard.volume_card import show_volume_card
-from src.dashboard.breakout_card import show_breakout_card
 
 from src.analysis.market_data import MarketData
 from src.analysis.signal_generator import SignalGenerator
@@ -81,7 +80,6 @@ st.divider()
 
 show_ai_card(ai_score)
 show_volume_card(result["volume"])
-show_breakout_card(result["breakout"])
 
 st.divider()
 
