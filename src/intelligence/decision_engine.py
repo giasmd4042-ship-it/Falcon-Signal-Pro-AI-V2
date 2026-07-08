@@ -11,10 +11,8 @@ class DecisionEngine:
         self.version = "V3.25.0"
         self.created_at = datetime.now()
 
+
     def evaluate(self, market_state):
-        """
-        Evaluate market intelligence state
-        """
 
         if not market_state:
             return {
@@ -23,18 +21,28 @@ class DecisionEngine:
                 "reason": "No market data"
             }
 
-        score = market_state.get("score", 0)
+
+        score = market_state.get(
+            "score",
+            market_state.get("confidence", 0)
+        )
+
 
         if score >= 80:
             decision = "STRONG_BUY"
+
         elif score >= 60:
             decision = "BUY"
+
         elif score <= 20:
             decision = "STRONG_SELL"
+
         elif score <= 40:
             decision = "SELL"
+
         else:
             decision = "WAIT"
+
 
         return {
             "decision": decision,
