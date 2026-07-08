@@ -15,6 +15,7 @@ from src.dashboard.breakout_card import show_breakout_card
 from src.dashboard.risk_card import show_risk_card
 from src.dashboard.risk_reward_card import show_risk_reward_card
 from src.dashboard.volatility_card import show_volatility_card
+from src.dashboard.intelligence_card import show_intelligence_card
 
 from src.analysis.market_data import MarketData
 from src.analysis.signal_generator import SignalGenerator
@@ -109,6 +110,7 @@ show_breakout_card(result["breakout"])
 show_risk_card(risk)
 show_risk_reward_card(rr)
 show_volatility_card(volatility)
+show_intelligence_card(result.get('intelligence'))
 
 st.divider()
 
@@ -137,3 +139,5 @@ show_multi_timeframe(mtf_result)
 st.divider()
 
 st.success("Falcon Signal Pro AI V8 Ready")
+
+
