@@ -1,4 +1,4 @@
-"""
+﻿"""
 Falcon Signal Pro AI V7.3
 Smart Watchlist
 """
@@ -20,5 +20,6 @@ def show_watchlist():
     ]
 
     for symbol in symbols:
-        st.write(f"� {symbol}")
+        st.write(f"• {symbol}")
+
 
