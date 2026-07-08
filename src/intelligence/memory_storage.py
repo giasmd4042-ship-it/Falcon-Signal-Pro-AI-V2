@@ -42,6 +42,11 @@ class MemoryStorage:
         with open(self.file, "r", encoding="utf-8") as f:
             return json.load(f)
 
+    def get_history(self):
+
+        return self.load()
+
+
     def latest(self):
 
         history = self.load()
@@ -53,3 +58,4 @@ class MemoryStorage:
 
 
 memory_storage = MemoryStorage()
+
