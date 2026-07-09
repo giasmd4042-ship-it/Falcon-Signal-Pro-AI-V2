@@ -1,5 +1,4 @@
-from src.execution.real_broker_authentication_bridge import real_broker_authentication_bridge
-from src.validation.live_account_verifier import live_account_verifier
+from src.execution.live_session_validator import live_session_validator
 
 
 class LiveConnectionHealthMonitor:
@@ -15,30 +14,11 @@ class LiveConnectionHealthMonitor:
     def check(self):
 
 
-        authentication = real_broker_authentication_bridge.authenticate()
-
-        account = live_account_verifier.verify()
+        session = live_session_validator.validate()
 
 
 
-        checks = {
-
-
-            "authentication":
-
-                authentication,
-
-
-
-            "account":
-
-                account
-
-        }
-
-
-
-        if not all(checks.values()):
+        if not session:
 
             self.healthy = False
             self.error = "LIVE_CONNECTION_NOT_READY"
@@ -74,7 +54,7 @@ class LiveConnectionHealthMonitor:
 
             "engine":
 
-                "V3.43"
+                "V3.47"
 
         }
 
