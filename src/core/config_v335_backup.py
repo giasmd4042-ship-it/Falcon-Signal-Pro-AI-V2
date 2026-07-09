@@ -1,11 +1,10 @@
 """
 Falcon Signal Pro AI V2.0
 Configuration Module
-V3.36 Live Connectivity Foundation
 """
 
 APP_NAME = "Falcon Signal Pro AI V2.0"
-VERSION = "3.36.0"
+VERSION = "3.34.0"
 
 
 ASSETS = [
@@ -28,26 +27,12 @@ ENABLE_TELEGRAM = False
 ENABLE_DASHBOARD = False
 
 
-# Runtime Modes
+# V3.34 Runtime Modes
 
 DATA_MODE = "paper"
 
 BROKER_MODE = "paper"
 
 
-# Live Trading Safety
-
 ENABLE_LIVE_TRADING = False
-
-LIVE_CONFIRMATION_REQUIRED = True
-
-
-# Risk Protection
-
-MAX_TRADE_SIZE = 1
-MAX_DAILY_LOSS = 500
-
-
-# Environment
-
-ENVIRONMENT = "development"
+ENABLE_PAPER_TRADING = True

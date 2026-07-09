@@ -4,38 +4,76 @@ class LiveBroker:
     def __init__(self):
 
         self.connected = False
-        self.orders = {}
-        self.positions = {}
+        self.error = None
+        self.provider = "LIVE_BROKER"
+
 
 
     def connect(self):
 
-        self.connected = True
+        try:
+
+            self.connected = True
+            self.error = None
+
+            return True
+
+
+        except Exception as e:
+
+            self.connected = False
+            self.error = str(e)
+
+            return False
+
+
+
+    def disconnect(self):
+
+        self.connected = False
+
         return True
 
 
-    def place_order(self, order):
+
+    def get_status(self):
+
+        return {
+
+            "provider": self.provider,
+
+            "connected": self.connected,
+
+            "error": self.error,
+
+            "engine": "V3.36"
+
+        }
+
+
+
+    def submit_order(self, order):
 
         if not self.connected:
-            raise Exception("Broker not connected")
 
-        order.status = order.status
-        self.orders[order.order_id] = order
+            return {
 
-        return order
+                "status": "BLOCKED",
 
+                "reason": "BROKER_NOT_CONNECTED"
 
-    def cancel_order(self, order_id):
-
-        if order_id in self.orders:
-            return True
-
-        return False
+            }
 
 
-    def get_positions(self):
+        # Real broker API execution point
 
-        return self.positions
+        return {
+
+            "status": "PENDING",
+
+            "order": order
+
+        }
 
 
 
