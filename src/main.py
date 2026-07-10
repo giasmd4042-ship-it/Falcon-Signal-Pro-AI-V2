@@ -1,11 +1,11 @@
 """
-Falcon Signal Pro AI V2.0
-Production Application Entry Point
+Falcon Signal Pro AI
+Production Trading Engine
+V3.38 Dashboard Integration
 """
 
 from src.core.trading_pipeline import pipeline
-from src.monitoring.system_logger import system_logger
-from src.monitoring.alert_manager import alert_manager
+from src.dashboard.dashboard_service import dashboard
 
 
 def main():
@@ -15,54 +15,33 @@ def main():
     print("Production Trading Engine")
     print("=" * 60)
 
-    system_logger.log("APPLICATION_START")
 
-    alert_manager.send(
-        "INFO",
-        "Application Started"
-    )
-
-    try:
-
-        result = pipeline.run()
-
-        print("\nTRADING RESULT")
-        print("=" * 60)
-
-        print("Signal:")
-        print(result.get("signal"))
-
-        print("\nOrder:")
-        print(result.get("order"))
-
-        print("\nPosition:")
-        print(result.get("position"))
-
-        print("\nAnalytics:")
-        print(result.get("analytics"))
-
-        print("=" * 60)
-
-        system_logger.log(
-            "APPLICATION_COMPLETED",
-            result
-        )
+    result = pipeline.run()
 
 
-    except Exception as error:
+    dashboard.update(result)
 
-        system_logger.log(
-            "APPLICATION_ERROR",
-            {"error": str(error)}
-        )
 
-        alert_manager.send(
-            "ERROR",
-            "Application Failed",
-            {"error": str(error)}
-        )
+    print("\nTRADING RESULT")
+    print("=" * 60)
 
-        print("ERROR:", error)
+    print("\nSignal:")
+    print(result.get("signal"))
+
+
+    print("\nOrder:")
+    print(result.get("order"))
+
+
+    print("\nPosition:")
+    print(result.get("position"))
+
+
+    print("\nAnalytics:")
+    print(result.get("analytics"))
+
+
+    print("=" * 60)
 
 
 
