@@ -1,6 +1,5 @@
 import streamlit as st
 import json
-import pandas as pd
 
 from src.core.trading_pipeline import pipeline
 from src.dashboard.dashboard_state import dashboard_state
@@ -29,18 +28,7 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.52")
-
-
-if st.button("Run Trading Pipeline"):
-
-    result = pipeline.run()
-
-    dashboard_state.update(result)
-
-    st.success(
-        "Pipeline Executed Successfully"
-    )
+st.subheader("Production Trading Dashboard V3.53")
 
 
 if dashboard_api.get_signal() is None:
@@ -50,6 +38,7 @@ if dashboard_api.get_signal() is None:
     dashboard_state.update(result)
 
 
+
 health = dashboard_api.get_health()
 
 
@@ -57,10 +46,16 @@ c1, c2, c3, c4 = st.columns(4)
 
 
 with c1:
-    st.metric("System", health["system"])
+    st.metric(
+        "System",
+        health["system"]
+    )
 
 with c2:
-    st.metric("Pipeline", health["pipeline"])
+    st.metric(
+        "Pipeline",
+        health["pipeline"]
+    )
 
 with c3:
     st.metric(
@@ -72,6 +67,47 @@ with c4:
     st.metric(
         "Dashboard",
         health["engine_health"]["dashboard"]
+    )
+
+
+
+st.divider()
+
+
+monitor = dashboard_api.get_monitoring()
+
+
+st.header("Portfolio Monitoring")
+
+
+m1, m2, m3, m4 = st.columns(4)
+
+
+with m1:
+    st.metric(
+        "Open Positions",
+        monitor["portfolio"]["open_positions"]
+    )
+
+
+with m2:
+    st.metric(
+        "Exposure",
+        monitor["portfolio"]["exposure"]
+    )
+
+
+with m3:
+    st.metric(
+        "Total Trades",
+        monitor["performance"]["trades"]
+    )
+
+
+with m4:
+    st.metric(
+        "Profit",
+        monitor["performance"]["profit"]
     )
 
 
@@ -98,78 +134,16 @@ with i2:
 
 with i3:
     st.metric(
-        "Profit",
-        intel["total_profit"]
-    )
-
-with i4:
-    st.metric(
         "Market",
         intel["market_regime"][0]
         if intel["market_regime"]
         else "UNKNOWN"
     )
 
-
-st.divider()
-
-
-charts = dashboard_api.get_chart_data()
-
-
-st.header("Strategy Performance")
-
-
-strategy_df = pd.DataFrame(
-    charts["strategy_performance"]
-)
-
-if not strategy_df.empty:
-    st.bar_chart(
-        strategy_df.set_index(
-            "strategy"
-        )["profit"]
-    )
-
-
-st.header("Win / Loss")
-
-
-wl_df = pd.DataFrame(
-    [
-        {
-            "Result": "Wins",
-            "Count": charts["win_loss"]["wins"]
-        },
-        {
-            "Result": "Losses",
-            "Count": charts["win_loss"]["losses"]
-        }
-    ]
-)
-
-
-st.bar_chart(
-    wl_df.set_index(
-        "Result"
-    )
-)
-
-
-st.header("Profit Curve")
-
-
-profit_df = pd.DataFrame(
-    charts["profit_curve"]
-)
-
-
-if not profit_df.empty:
-
-    st.line_chart(
-        profit_df.set_index(
-            "trade"
-        )["profit"]
+with i4:
+    st.metric(
+        "Engine",
+        "V3.53"
     )
 
 
@@ -188,14 +162,6 @@ st.header("Risk Snapshot")
 st.json(
     safe_json(
         dashboard_api.get_risk_snapshot()
-    )
-)
-
-
-st.header("Signal History")
-st.json(
-    safe_json(
-        dashboard_api.get_signal_history()
     )
 )
 
