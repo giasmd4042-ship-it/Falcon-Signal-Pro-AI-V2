@@ -2,8 +2,8 @@ import streamlit as st
 import json
 
 from src.core.trading_pipeline import pipeline
-from src.dashboard.dashboard_service import dashboard
 from src.dashboard.dashboard_state import dashboard_state
+from src.dashboard.dashboard_api import dashboard_api
 
 
 def safe_json(data):
@@ -28,14 +28,12 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.47")
+st.subheader("Production Trading Dashboard V3.50")
 
 
 if st.button("Run Trading Pipeline"):
 
     result = pipeline.run()
-
-    dashboard.update(result)
 
     dashboard_state.update(result)
 
@@ -44,90 +42,96 @@ if st.button("Run Trading Pipeline"):
     )
 
 
-status = dashboard.status()
+if dashboard_api.get_signal() is None:
+
+    result = pipeline.run()
+
+    dashboard_state.update(result)
+
+
+health = dashboard_api.get_health()
 
 
 col1, col2, col3, col4 = st.columns(4)
 
 
 with col1:
-    st.metric(
-        "System",
-        status["system"]
-    )
+    st.metric("System", health["system"])
 
 
 with col2:
-    st.metric(
-        "Pipeline",
-        status["pipeline"]
-    )
+    st.metric("Pipeline", health["pipeline"])
 
 
 with col3:
     st.metric(
         "Execution",
-        status["engine_health"]["execution"]
+        health["engine_health"]["execution"]
     )
 
 
 with col4:
     st.metric(
         "Dashboard",
-        status["engine_health"]["dashboard"]
+        health["engine_health"]["dashboard"]
     )
 
 
 st.divider()
 
 
-st.header("Signal")
+col1, col2 = st.columns(2)
 
-st.json(
-    safe_json(
-        status.get("signal")
+
+with col1:
+    st.header("Signal")
+    st.json(
+        safe_json(
+            dashboard_api.get_signal()
+        )
     )
-)
 
 
-st.header("Positions")
-
-st.json(
-    safe_json(
-        status.get("positions")
+with col2:
+    st.header("Risk Snapshot")
+    st.json(
+        safe_json(
+            dashboard_api.get_risk_snapshot()
+        )
     )
-)
 
 
-st.header("Orders")
+st.divider()
 
-st.json(
-    safe_json(
-        status.get("orders")
+
+col1, col2 = st.columns(2)
+
+
+with col1:
+    st.header("Signal History")
+    st.json(
+        safe_json(
+            dashboard_api.get_signal_history()
+        )
     )
-)
+
+
+with col2:
+    st.header("Trade History")
+    st.json(
+        safe_json(
+            dashboard_api.get_trade_history()
+        )
+    )
+
+
+st.divider()
 
 
 st.header("Performance")
 
 st.json(
     safe_json(
-        status.get("performance")
+        dashboard_api.get_performance()
     )
-)
-
-
-st.header("Alerts")
-
-st.json(
-    safe_json(
-        status.get("alerts")
-    )
-)
-
-
-st.divider()
-
-st.caption(
-    "Falcon Signal Pro AI Engine V3.47 - Live Dashboard State Enabled"
 )
