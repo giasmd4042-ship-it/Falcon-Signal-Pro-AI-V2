@@ -178,7 +178,7 @@ class TradingPipeline:
 
             return {
                 "signal": signal,
-                "order": result.status.value,
+                "order": result,
                 "position": self.positions.get_all_positions(),
                 "analytics": analytics
             }

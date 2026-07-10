@@ -1,0 +1,7 @@
+{
+    "environment": "paper",
+    "broker": "paper",
+    "risk_enabled": true,
+    "failover_enabled": true,
+    "recovery_enabled": true
+}
