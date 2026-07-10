@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Optional
 
@@ -34,7 +34,7 @@ class Order:
     status: OrderStatus = OrderStatus.CREATED
     order_id: Optional[str] = None
     filled_quantity: float = 0.0
-    created_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     def fill(self, quantity: float):
         self.filled_quantity = quantity
