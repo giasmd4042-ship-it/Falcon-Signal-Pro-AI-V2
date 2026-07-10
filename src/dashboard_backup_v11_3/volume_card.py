@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V10.3
 Volume Analysis Card
 """

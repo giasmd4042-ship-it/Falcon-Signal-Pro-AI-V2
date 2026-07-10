@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V11.3
 Volatility Card
 """
@@ -22,13 +22,13 @@ def show_volatility_card(volatility):
         st.metric("Risk", volatility["risk"])
 
     if volatility["level"] == "LOW":
-        st.success("🟢 Low Volatility")
+        st.success("?? Low Volatility")
 
     elif volatility["level"] == "MEDIUM":
-        st.warning("🟡 Medium Volatility")
+        st.warning("?? Medium Volatility")
 
     elif volatility["level"] == "HIGH":
-        st.error("🔴 High Volatility")
+        st.error("?? High Volatility")
 
     else:
         st.info("Volatility Unknown")

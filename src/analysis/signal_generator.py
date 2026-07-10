@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V3.25
 Intelligent Signal Generator
 """

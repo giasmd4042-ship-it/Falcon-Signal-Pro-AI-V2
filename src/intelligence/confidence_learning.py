@@ -1,4 +1,4 @@
-﻿class ConfidenceLearning:
+class ConfidenceLearning:
     """
     Falcon Signal Pro AI V3.25.4
     Historical confidence adjustment engine

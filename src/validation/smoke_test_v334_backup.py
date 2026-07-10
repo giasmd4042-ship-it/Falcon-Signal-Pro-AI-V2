@@ -43,7 +43,7 @@ class SmokeTest:
             else "FAIL"
         )
 
-        results["timestamp"] = datetime.utcnow().isoformat()
+        results["timestamp"] = datetime.now(datetime.UTC).isoformat()
         results["engine"] = "V3.33"
 
         return results

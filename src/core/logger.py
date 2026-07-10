@@ -10,7 +10,7 @@ class SystemLogger:
         event = {
             "level": level,
             "message": message,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
         self.events.append(event)

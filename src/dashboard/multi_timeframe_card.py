@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V9
 Multi Timeframe Card
 """
@@ -20,13 +20,13 @@ def show_multi_timeframe(result):
             value = result.get(tf, "-")
 
             if value == "BULLISH":
-                st.success(f"{tf}\n\n🟢 {value}")
+                st.success(f"{tf}\n\n?? {value}")
 
             elif value == "BEARISH":
-                st.error(f"{tf}\n\n🔴 {value}")
+                st.error(f"{tf}\n\n?? {value}")
 
             elif value == "NEUTRAL":
-                st.warning(f"{tf}\n\n🟡 {value}")
+                st.warning(f"{tf}\n\n?? {value}")
 
             else:
-                st.info(f"{tf}\n\n⚪ {value}")
+                st.info(f"{tf}\n\n? {value}")

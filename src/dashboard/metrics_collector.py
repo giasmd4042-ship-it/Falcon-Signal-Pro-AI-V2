@@ -23,7 +23,7 @@ class MetricsCollector:
             "profit": performance.get("total_profit", 0),
             "alerts": self.get_alert_count(),
             "health": "OK",
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(datetime.UTC).isoformat(),
             "engine": "V3.33"
         }
 

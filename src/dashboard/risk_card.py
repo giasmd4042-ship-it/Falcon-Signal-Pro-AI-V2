@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V11
 Risk Card
 """

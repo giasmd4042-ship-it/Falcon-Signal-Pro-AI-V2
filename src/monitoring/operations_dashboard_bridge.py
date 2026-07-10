@@ -21,7 +21,7 @@ class OperationsDashboardBridge:
                 "total": len(alert_escalation.get_alerts()),
                 "critical": alert_escalation.critical_count()
             },
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
 

@@ -20,7 +20,7 @@ class ExecutionObserver:
         return {
             "status": "SUCCESS",
             "symbol": order.symbol,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
 
@@ -36,7 +36,7 @@ class ExecutionObserver:
         return {
             "status": "FAILED",
             "error": str(error),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
 

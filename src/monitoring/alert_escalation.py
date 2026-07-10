@@ -19,7 +19,7 @@ class AlertEscalation:
             "level": level,
             "message": message,
             "data": data,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
         self.alerts.append(alert)

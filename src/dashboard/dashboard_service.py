@@ -27,7 +27,7 @@ class DashboardService:
                 "execution": "OK",
                 "analytics": "OK"
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(datetime.UTC).isoformat(),
             "engine": "V3.33"
         }
 

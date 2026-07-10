@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 
 from src.intelligence.memory_storage import memory_storage
 from src.intelligence.confidence_learning import confidence_learning

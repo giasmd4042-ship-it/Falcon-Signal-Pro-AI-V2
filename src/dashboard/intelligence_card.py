@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 
 
 def show_intelligence_card(intelligence):
@@ -9,7 +9,7 @@ def show_intelligence_card(intelligence):
     decision = intelligence.get("decision", {})
     reasoning = intelligence.get("reasoning", {})
 
-    st.subheader("🧠 Falcon Intelligence Layer")
+    st.subheader("?? Falcon Intelligence Layer")
 
     col1, col2, col3 = st.columns(3)
 

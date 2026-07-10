@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V8
 Professional Dashboard Theme
 """
@@ -10,7 +10,7 @@ def apply_theme():
 
     st.set_page_config(
         page_title="Falcon Signal Pro AI V8",
-        page_icon="📈",
+        page_icon="??",
         layout="wide",
         initial_sidebar_state="expanded"
     )

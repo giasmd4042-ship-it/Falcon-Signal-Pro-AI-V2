@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 
 from src.intelligence.market_regime import market_regime
 from src.intelligence.decision_engine import decision_engine

@@ -8,7 +8,7 @@ class ExecutionMetrics:
         self.total_orders = 0
         self.successful_orders = 0
         self.failed_orders = 0
-        self.start_time = datetime.utcnow()
+        self.start_time = datetime.now(datetime.UTC)
 
 
     def record_success(self):
@@ -40,7 +40,7 @@ class ExecutionMetrics:
             "failed_orders": self.failed_orders,
             "success_rate": success_rate,
             "started": self.start_time.isoformat(),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
 

@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V10.4
 Volume Weighted AI Score Engine
 """

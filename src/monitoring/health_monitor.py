@@ -31,7 +31,7 @@ class HealthMonitor:
         return {
             "status": self.status,
             "checks": checks,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
 

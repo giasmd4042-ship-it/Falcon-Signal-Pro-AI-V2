@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V9.1
 AI Score Engine
 """

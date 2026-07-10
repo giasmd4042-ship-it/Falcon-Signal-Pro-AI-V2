@@ -2,28 +2,30 @@ from src.execution.execution_router import ExecutionRouter
 from src.brokers.mt5_broker import mt5_broker
 
 
-router = ExecutionRouter()
+def test_execution_router():
 
-assert mt5_broker.connect()
+    router = ExecutionRouter()
 
-router.register_broker("mt5", mt5_broker)
+    assert mt5_broker.connect()
 
-result = router.place_order(
-    "mt5",
-    {
-        "symbol": "EURUSDm",
-        "volume": 0.01,
-    },
-)
+    router.register_broker("mt5", mt5_broker)
 
-print(result)
+    result = router.place_order(
+        "mt5",
+        {
+            "symbol": "EURUSDm",
+            "volume": 0.01,
+        },
+    )
 
-assert result["success"] is True
+    print(result)
 
-positions = mt5_broker.get_positions()
+    assert result["success"] is True
 
-assert len(positions) > 0
+    positions = mt5_broker.get_positions()
 
-print("Execution Router Test Passed")
+    assert len(positions) > 0
 
-mt5_broker.disconnect()
+    print("Execution Router Test Passed")
+
+    mt5_broker.disconnect()

@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 
 from src.backtesting.backtest_analyzer import backtest_analyzer
 from src.backtesting.risk_analytics import risk_analytics

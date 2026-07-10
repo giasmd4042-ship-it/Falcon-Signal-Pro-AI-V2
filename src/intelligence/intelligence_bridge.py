@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 
 from src.intelligence.market_memory import market_memory
 from src.intelligence.memory_storage import memory_storage

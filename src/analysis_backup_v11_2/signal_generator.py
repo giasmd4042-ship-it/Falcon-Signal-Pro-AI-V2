@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V7
 Professional Signal Generator
 """

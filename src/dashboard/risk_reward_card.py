@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V11.2
 Risk Reward Card
 """
@@ -21,13 +21,13 @@ def show_risk_reward_card(rr):
         st.metric("Quality", rr["quality"])
 
     if rr["quality"] == "EXCELLENT":
-        st.success("⭐⭐⭐⭐⭐ Excellent Trade")
+        st.success("????? Excellent Trade")
 
     elif rr["quality"] == "GOOD":
-        st.success("⭐⭐⭐⭐ Good Trade")
+        st.success("???? Good Trade")
 
     elif rr["quality"] == "AVERAGE":
-        st.warning("⭐⭐⭐ Average Trade")
+        st.warning("??? Average Trade")
 
     else:
-        st.error("⭐⭐ Poor Trade")
+        st.error("?? Poor Trade")

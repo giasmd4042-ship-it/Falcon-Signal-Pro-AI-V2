@@ -34,7 +34,7 @@ class TradeAuditLogger:
             "side": side,
             "quantity": quantity,
             "status": status,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(datetime.UTC).isoformat()
         }
 
         self.events.append(event)

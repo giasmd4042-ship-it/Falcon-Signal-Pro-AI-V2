@@ -1,4 +1,4 @@
-﻿"""
+"""
 Falcon Signal Pro AI V9
 Multi Timeframe Analyzer
 """

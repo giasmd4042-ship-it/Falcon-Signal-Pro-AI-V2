@@ -36,7 +36,7 @@ class ReleaseValidator:
         return {
             "status": "READY" if all(checks.values()) else "NOT_READY",
             "checks": checks,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(datetime.UTC).isoformat(),
             "release": "V3.33"
         }
 
