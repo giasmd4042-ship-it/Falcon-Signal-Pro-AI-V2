@@ -28,7 +28,7 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.50")
+st.subheader("Production Trading Dashboard V3.51")
 
 
 if st.button("Run Trading Pipeline"):
@@ -52,25 +52,28 @@ if dashboard_api.get_signal() is None:
 health = dashboard_api.get_health()
 
 
-col1, col2, col3, col4 = st.columns(4)
+c1, c2, c3, c4 = st.columns(4)
 
 
-with col1:
-    st.metric("System", health["system"])
+with c1:
+    st.metric(
+        "System",
+        health["system"]
+    )
 
+with c2:
+    st.metric(
+        "Pipeline",
+        health["pipeline"]
+    )
 
-with col2:
-    st.metric("Pipeline", health["pipeline"])
-
-
-with col3:
+with c3:
     st.metric(
         "Execution",
         health["engine_health"]["execution"]
     )
 
-
-with col4:
+with c4:
     st.metric(
         "Dashboard",
         health["engine_health"]["dashboard"]
@@ -80,56 +83,75 @@ with col4:
 st.divider()
 
 
-col1, col2 = st.columns(2)
+intel = dashboard_api.get_intelligence()
 
 
-with col1:
-    st.header("Signal")
-    st.json(
-        safe_json(
-            dashboard_api.get_signal()
-        )
+i1, i2, i3, i4 = st.columns(4)
+
+
+with i1:
+    st.metric(
+        "Best Strategy",
+        intel["best_strategy"]
     )
 
-
-with col2:
-    st.header("Risk Snapshot")
-    st.json(
-        safe_json(
-            dashboard_api.get_risk_snapshot()
-        )
+with i2:
+    st.metric(
+        "Win Rate",
+        f'{intel["win_rate"]}%'
     )
 
-
-st.divider()
-
-
-col1, col2 = st.columns(2)
-
-
-with col1:
-    st.header("Signal History")
-    st.json(
-        safe_json(
-            dashboard_api.get_signal_history()
-        )
+with i3:
+    st.metric(
+        "Profit",
+        intel["total_profit"]
     )
 
-
-with col2:
-    st.header("Trade History")
-    st.json(
-        safe_json(
-            dashboard_api.get_trade_history()
-        )
+with i4:
+    st.metric(
+        "Market",
+        intel["market_regime"][0]
+        if intel["market_regime"]
+        else "UNKNOWN"
     )
 
 
 st.divider()
+
+
+st.header("Signal")
+st.json(
+    safe_json(
+        dashboard_api.get_signal()
+    )
+)
+
+
+st.header("Risk Snapshot")
+st.json(
+    safe_json(
+        dashboard_api.get_risk_snapshot()
+    )
+)
+
+
+st.header("Signal History")
+st.json(
+    safe_json(
+        dashboard_api.get_signal_history()
+    )
+)
+
+
+st.header("Trade History")
+st.json(
+    safe_json(
+        dashboard_api.get_trade_history()
+    )
+)
 
 
 st.header("Performance")
-
 st.json(
     safe_json(
         dashboard_api.get_performance()

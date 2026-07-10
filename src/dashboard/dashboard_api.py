@@ -9,7 +9,6 @@ class DashboardAPI:
         return {
             "system": "ONLINE",
             "pipeline": "RUNNING",
-
             "engine_health": {
                 "signal_engine": "OK",
                 "risk_guard": "OK",
@@ -20,67 +19,60 @@ class DashboardAPI:
         }
 
 
-
     def get_signal(self):
 
-        return dashboard_state.snapshot().get(
-            "signal"
-        )
-
-
-
-    def get_positions(self):
-
-        return dashboard_state.snapshot().get(
-            "positions",
-            []
-        )
-
-
-
-    def get_orders(self):
-
-        return dashboard_state.snapshot().get(
-            "orders",
-            []
-        )
-
-
-
-    def get_performance(self):
-
-        return dashboard_state.snapshot().get(
-            "performance",
-            {}
-        )
-
+        return dashboard_state.signal
 
 
     def get_signal_history(self):
 
-        return dashboard_state.snapshot().get(
-            "signal_history",
-            []
-        )
-
+        return dashboard_state.signal_history
 
 
     def get_trade_history(self):
 
-        return dashboard_state.snapshot().get(
-            "trade_history",
-            []
-        )
-
+        return dashboard_state.trade_history
 
 
     def get_risk_snapshot(self):
 
-        return dashboard_state.snapshot().get(
-            "risk_snapshot",
-            {}
-        )
+        return dashboard_state.risk_snapshot
 
+
+    def get_performance(self):
+
+        return dashboard_state.performance
+
+
+    def get_intelligence(self):
+
+        performance = dashboard_state.performance
+
+        return {
+            "best_strategy": performance.get(
+                "best_strategy"
+            ),
+            "win_rate": performance.get(
+                "win_rate",
+                0
+            ),
+            "total_profit": performance.get(
+                "total_profit",
+                0
+            ),
+            "market_regime": list(
+                performance.get(
+                    "regimes",
+                    {}
+                ).keys()
+            ),
+            "strategy_count": len(
+                performance.get(
+                    "strategies",
+                    {}
+                )
+            )
+        }
 
 
 dashboard_api = DashboardAPI()
