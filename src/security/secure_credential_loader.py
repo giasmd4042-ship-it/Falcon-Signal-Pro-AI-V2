@@ -4,25 +4,60 @@ import os
 class SecureCredentialLoader:
 
 
-    def get_broker_key(self):
+    def __init__(self):
 
-        return os.getenv("BROKER_API_KEY")
+        self.loaded = False
+        self.error = None
 
 
 
-    def get_broker_secret(self):
+    def load(self):
 
-        return os.getenv("BROKER_SECRET_KEY")
+
+        required = [
+
+            "BROKER_API_KEY",
+
+            "BROKER_API_SECRET"
+
+        ]
+
+
+
+        missing = [
+
+            item
+
+            for item in required
+
+            if not os.getenv(item)
+
+        ]
+
+
+
+        if missing:
+
+            self.loaded = False
+
+            self.error = "MISSING_SECURE_CREDENTIALS"
+
+            return False
+
+
+
+        self.loaded = True
+
+        self.error = None
+
+        return True
 
 
 
     def validate(self):
 
 
-        key = self.get_broker_key()
-
-        secret = self.get_broker_secret()
-
+        result = self.load()
 
 
         return {
@@ -30,25 +65,45 @@ class SecureCredentialLoader:
 
             "valid":
 
-                bool(key and secret),
+                result,
 
 
 
-            "BROKER_API_KEY":
+            "error":
 
-                bool(key),
-
-
-
-            "BROKER_SECRET_KEY":
-
-                bool(secret),
+                self.error,
 
 
 
             "engine":
 
-                "V3.41"
+                "V3.50"
+
+        }
+
+
+
+    def get_status(self):
+
+
+        return {
+
+
+            "credentials_loaded":
+
+                self.loaded,
+
+
+
+            "error":
+
+                self.error,
+
+
+
+            "engine":
+
+                "V3.50"
 
         }
 
