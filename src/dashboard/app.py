@@ -28,7 +28,7 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.53")
+st.subheader("Production Trading Dashboard V3.57")
 
 
 if dashboard_api.get_signal() is None:
@@ -143,7 +143,7 @@ with i3:
 with i4:
     st.metric(
         "Engine",
-        "V3.53"
+        "V3.57"
     )
 
 
@@ -173,7 +173,18 @@ st.json(
     )
 )
 
+st.divider()
 
+st.header("Live Analytics")
+
+st.success("V3.57 Live Analytics module initialized.")
+
+analytics = dashboard_api.get_performance()
+
+st.metric(
+    "Live Profit",
+    analytics.get("total_profit", 0)
+)
 st.header("Performance")
 st.json(
     safe_json(
