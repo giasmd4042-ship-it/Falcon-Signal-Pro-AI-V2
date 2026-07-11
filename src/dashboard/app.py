@@ -195,7 +195,20 @@ st.json(
     )
 )
 
+st.divider()
 
+st.header("Live Charts")
+
+st.info(
+    "V3.56 Live Charts will be enabled in the next patch."
+)
+
+
+chart_data = {
+    "Profit": [0, 100, 180, 250, 320, 420, 500]
+}
+
+st.line_chart(chart_data)
 st.header("Performance")
 st.json(
     safe_json(
