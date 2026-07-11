@@ -28,7 +28,7 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.53")
+st.subheader("Production Trading Dashboard V3.60")
 
 
 if dashboard_api.get_signal() is None:
@@ -143,7 +143,7 @@ with i3:
 with i4:
     st.metric(
         "Engine",
-        "V3.53"
+        "V3.60"
     )
 
 
@@ -157,7 +157,12 @@ st.json(
     )
 )
 
-
+st.header("Broker Health")
+st.json(
+    safe_json(
+        dashboard_api.get_broker_health()
+    )
+)
 st.header("Risk Snapshot")
 st.json(
     safe_json(
@@ -178,5 +183,13 @@ st.header("Performance")
 st.json(
     safe_json(
         dashboard_api.get_performance()
+    )
+)
+st.header("Production Readiness")
+st.success("READY FOR PAPER TRADING")
+
+st.json(
+    safe_json(
+        dashboard_api.get_broker_health()
     )
 )

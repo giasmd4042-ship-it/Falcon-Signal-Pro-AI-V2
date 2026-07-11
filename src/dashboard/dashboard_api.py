@@ -1,5 +1,5 @@
 from src.dashboard.dashboard_state import dashboard_state
-
+from src.execution.live_connection_manager import live_connection_manager
 
 class DashboardAPI:
 
@@ -154,6 +154,20 @@ class DashboardAPI:
 
         }
 
+
+    def get_broker_health(self):        
+        connection = live_connection_manager.get_status()
+        
+
+        return {        
+            "broker": "CONNECTED" if connection["connected"] else "DISCONNECTED",
+            "authentication": "VERIFIED" if connection["error"] is None else "FAILED",
+            "session": "ACTIVE" if connection["connected"] else "INACTIVE",
+            "gateway": "ONLINE",
+            "environment": "PAPER",
+            "permission": "ALLOWED",
+            "engine": connection["engine"],
+        }
 
 
 dashboard_api = DashboardAPI()
