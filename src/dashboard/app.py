@@ -28,7 +28,7 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.53")
+st.subheader("Production Trading Dashboard V3.55")
 
 
 if dashboard_api.get_signal() is None:
@@ -142,12 +142,34 @@ with i3:
 
 with i4:
     st.metric(
-        "Engine",
-        "V3.53"
-    )
+    "Engine",
+    "V3.55"
+)
+
+st.divider()
+
+
 
 
 st.divider()
+
+st.header("Risk Analytics")
+
+risk = dashboard_api.get_risk_analytics()
+
+r1, r2, r3, r4 = st.columns(4)
+
+with r1:
+    st.metric("Risk Status", risk.get("status", "UNKNOWN"))
+
+with r2:
+    st.metric("Exposure", risk.get("exposure", 0))
+
+with r3:
+    st.metric("Open Positions", risk.get("open_positions", 0))
+
+with r4:
+    st.metric("Profit", risk.get("profit", 0))
 
 
 st.header("Signal")

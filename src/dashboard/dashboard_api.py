@@ -154,6 +154,19 @@ class DashboardAPI:
 
         }
 
+    def get_risk_analytics(self):
 
+        snapshot = dashboard_state.snapshot()
+        performance = snapshot.get("performance", {})
+        risk = snapshot.get("risk_snapshot", {})
+
+        return {
+            "status": risk.get("status", "SAFE"),
+            "exposure": risk.get("exposure", 0),
+            "open_positions": risk.get("open_positions", 0),
+            "total_trades": performance.get("total_trades", 0),
+            "win_rate": performance.get("win_rate", 0),
+            "profit": performance.get("total_profit", 0),
+        }
 
 dashboard_api = DashboardAPI()
