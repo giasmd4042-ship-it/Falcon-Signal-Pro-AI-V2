@@ -155,5 +155,27 @@ class DashboardAPI:
         }
 
 
+        return {
+            "status": "SAFE",
+            "exposure": 1,
+            "open_positions": 1,
+            "total_trades": 1,
+            "win_rate": 100,
+            "profit": 500
+        }
+
+
+    def get_risk_analytics(self):
+        return {
+            "status": "SAFE",
+            "exposure": 1,
+            "open_positions": 1,
+            "total_trades": 1,
+            "win_rate": 100,
+            "profit": 500
+        }
+
 
 dashboard_api = DashboardAPI()
+
+    

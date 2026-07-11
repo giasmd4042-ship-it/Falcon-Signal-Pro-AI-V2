@@ -181,10 +181,30 @@ st.success("V3.57 Live Analytics module initialized.")
 
 analytics = dashboard_api.get_performance()
 
-st.metric(
+col1, col2, col3, col4 = st.columns(4)
+
+col1.metric(
     "Live Profit",
     analytics.get("total_profit", 0)
 )
+
+col2.metric(
+    "Total Trades",
+    analytics.get("total_trades", 0)
+)
+
+col3.metric(
+    "Win Rate",
+    f"{analytics.get('win_rate', 0)}%"
+)
+
+risk = dashboard_api.get_risk_analytics()
+
+col4.metric(
+    "Open Positions",
+    risk.get("open_positions", 0)
+)
+
 st.header("Performance")
 st.json(
     safe_json(
