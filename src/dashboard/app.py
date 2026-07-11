@@ -204,8 +204,19 @@ st.info(
 )
 
 
+performance = dashboard_api.get_performance()
+
+profit = performance.get("total_profit", 0)
+
 chart_data = {
-    "Profit": [0, 100, 180, 250, 320, 420, 500]
+    "Profit": [
+        0,
+        profit * 0.25,
+        profit * 0.50,
+        profit * 0.75,
+        profit
+    ]
+
 }
 
 st.line_chart(chart_data)
