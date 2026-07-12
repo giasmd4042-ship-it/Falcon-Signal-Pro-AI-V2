@@ -5,12 +5,12 @@ from src.portfolio.trade_journal import trade_journal
 
 class PerformanceAnalytics:
     """
-    Falcon Signal Pro AI V3.70
+    Falcon Signal Pro AI V3.71
     AI Performance Analytics Engine
     """
 
     def __init__(self):
-        self.version = "V3.70"
+        self.version = "V3.71"
 
 
     def analyze(self):
@@ -26,6 +26,10 @@ class PerformanceAnalytics:
         total_profit = 0
         wins = 0
         losses = 0
+        gross_profit = 0
+        gross_loss = 0
+        winning_trades = 0
+        losing_trades = 0
 
         strategies = {}
         regimes = {}
@@ -56,11 +60,17 @@ class PerformanceAnalytics:
 
             total_profit += profit
 
+               
 
             if profit > 0:
                 wins += 1
+                gross_profit += profit
+                winning_trades += 1
+
             else:
                 losses += 1
+                gross_loss += abs(profit)
+                losing_trades += 1
 
 
             if strategy not in strategies:
@@ -102,7 +112,35 @@ class PerformanceAnalytics:
             else 0
         )
 
+        average_win = (
+            round(
+                gross_profit / winning_trades,
+                2
+            )
+            if winning_trades
+            else 0
+        )
 
+        average_loss = (
+            round(
+                gross_loss / losing_trades,
+                2
+            )
+            if losing_trades
+            else 0
+        )
+
+        if gross_loss:
+            profit_factor = round(
+                gross_profit / gross_loss,
+                2
+            )
+
+        elif gross_profit:
+            profit_factor = "INF"
+
+        else:
+            profit_factor = 0
         best_strategy = None
 
         if strategies:
@@ -117,6 +155,9 @@ class PerformanceAnalytics:
             "wins": wins,
             "losses": losses,
             "win_rate": win_rate,
+            "average_win": average_win,
+            "average_loss": average_loss,
+            "profit_factor": profit_factor,
             "total_profit": total_profit,
             "strategies": strategies,
             "regimes": regimes,
