@@ -73,10 +73,15 @@ class DashboardAPI:
             0
         )
 
-        if exposure >= 80:
+        risk_score = min(
+            exposure,
+            100
+        )
+
+        if risk_score >= 80:
             level = "HIGH"
 
-        elif exposure >= 40:
+        elif risk_score >= 40:
             level = "MEDIUM"
 
         else:
@@ -84,8 +89,10 @@ class DashboardAPI:
 
         return {
             "risk_level": level,
-            "exposure": exposure
-        }
+            "exposure": exposure,
+            "risk_score": risk_score,
+            "risk_status": "SAFE" if risk_score < 40 else "WARNING"
+        }        
     def get_performance(self):
 
         return dashboard_state.snapshot().get(

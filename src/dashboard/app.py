@@ -147,6 +147,19 @@ with r1:
         risk["risk_level"]
     )
 
+r3, r4 = st.columns(2)
+
+with r3:
+    st.metric(
+        "Risk Score",
+        risk["risk_score"]
+    )
+
+with r4:
+    st.metric(
+        "Risk Status",
+        risk["risk_status"]
+    )        
 with r2:
     st.metric(
         "Exposure",
