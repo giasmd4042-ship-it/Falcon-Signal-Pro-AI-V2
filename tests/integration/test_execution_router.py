@@ -1,3 +1,5 @@
+import pytest
+
 from src.execution.execution_router import ExecutionRouter
 from src.brokers.mt5_broker import mt5_broker
 
@@ -10,22 +12,28 @@ def test_execution_router():
 
     router.register_broker("mt5", mt5_broker)
 
-    result = router.place_order(
-        "mt5",
-        {
-            "symbol": "EURUSDm",
-            "volume": 0.01,
-        },
-    )
+    try:
 
-    print(result)
+        result = router.place_order(
+            "mt5",
+            {
+                "symbol": "EURUSDm",
+                "volume": 0.01,
+            },
+        )
 
-    assert result["success"] is True
+        print(result)
 
-    positions = mt5_broker.get_positions()
+        if result.get("comment") == "Market closed":
+            pytest.skip("MT5 market closed")
 
-    assert len(positions) > 0
+        assert result["success"] is True
 
-    print("Execution Router Test Passed")
+        positions = mt5_broker.get_positions()
 
-    mt5_broker.disconnect()
+        assert len(positions) > 0
+
+        print("Execution Router Test Passed")
+
+    finally:
+        mt5_broker.disconnect()
