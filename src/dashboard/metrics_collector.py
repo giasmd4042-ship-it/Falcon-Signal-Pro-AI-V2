@@ -29,7 +29,7 @@ class MetricsCollector:
             "alerts": self.get_alert_count(),
             "health": "OK",
             "timestamp": datetime.now(timezone.utc).isoformat(),
-            "engine": "V3.67"
+            "engine": "V3.68"
         }
 
         metrics_store.save(metrics)
