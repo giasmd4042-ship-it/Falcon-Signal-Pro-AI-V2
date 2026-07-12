@@ -49,7 +49,7 @@ class LiveConnectionManager:
 
             "error": self.error,
 
-            "engine": "V3.66"
+            "engine": "V3.67"
 
         }
 
