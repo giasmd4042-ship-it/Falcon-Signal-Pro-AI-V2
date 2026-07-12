@@ -5,12 +5,12 @@ from src.portfolio.trade_journal import trade_journal
 
 class PerformanceAnalytics:
     """
-    Falcon Signal Pro AI V3.69
+    Falcon Signal Pro AI V3.70
     AI Performance Analytics Engine
     """
 
     def __init__(self):
-        self.version = "V3.69"
+        self.version = "V3.70"
 
 
     def analyze(self):
