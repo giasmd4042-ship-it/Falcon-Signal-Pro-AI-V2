@@ -203,6 +203,36 @@ with i4:
 
 st.divider()
 
+st.header("Performance Intelligence")
+
+perf1, perf2, perf3, perf4 = st.columns(4)
+
+with perf1:
+    st.metric(
+        "Average Win",
+        intel["average_win"]
+    )
+
+with perf2:
+    st.metric(
+        "Average Loss",
+        intel["average_loss"]
+    )
+
+with perf3:
+    st.metric(
+        "Profit Factor",
+        intel["profit_factor"]
+    )
+
+with perf4:
+    st.metric(
+        "Performance Grade",
+        "A"
+    )
+
+
+st.divider()
 
 
 st.header("Trade History")

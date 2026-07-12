@@ -92,7 +92,8 @@ class DashboardAPI:
             "exposure": exposure,
             "risk_score": risk_score,
             "risk_status": "SAFE" if risk_score < 40 else "WARNING"
-        }        
+        }
+        
     def get_performance(self):
 
         return dashboard_state.snapshot().get(
@@ -105,93 +106,43 @@ class DashboardAPI:
         performance = self.get_performance()
 
         return {
-            "best_strategy":
-                performance.get(
-                    "best_strategy",
-                    "UNKNOWN"
-                ),
+            "best_strategy": performance.get(
+                "best_strategy",
+                "UNKNOWN"
+            ),
 
-            "win_rate":
-                performance.get(
-                    "win_rate",
-                    0
-                ),
+            "win_rate": performance.get(
+                "win_rate",
+                0
+            ),
 
-            "total_profit":
-                performance.get(
-                    "total_profit",
-                    0
-                ),
+            "total_profit": performance.get(
+                "total_profit",
+                0
+            ),
 
-            "market_regime":
-                list(
-                    performance.get(
-                        "regimes",
-                        {}
-                    ).keys()
-                )
+            "average_win": performance.get(
+                "average_win",
+                0
+            ),
+
+            "average_loss": performance.get(
+                "average_loss",
+                0
+            ),
+
+            "profit_factor": performance.get(
+                "profit_factor",
+                0
+            ),
+
+            "market_regime": list(
+                performance.get(
+                    "regimes",
+                    {}
+                ).keys()
+            )
         }
-
-
-
-    def get_monitoring(self):
-
-        performance = self.get_performance()
-
-        return {
-
-            "portfolio": {
-
-                "open_positions":
-                    len(
-                        dashboard_state.snapshot().get(
-                            "positions",
-                            []
-                        )
-                    ),
-
-                "exposure":
-                    dashboard_state.snapshot().get(
-                        "risk_snapshot",
-                        {}
-                    ).get(
-                        "exposure",
-                        0
-                    )
-
-            },
-
-            "performance": {
-
-                "trades":
-                    performance.get(
-                        "total_trades",
-                        0
-                    ),
-
-                "wins":
-                    performance.get(
-                        "wins",
-                        0
-                    ),
-
-                "losses":
-                    performance.get(
-                        "losses",
-                        0
-                    ),
-
-                "profit":
-                    performance.get(
-                        "total_profit",
-                        0
-                    )
-
-            }
-
-        }
-
-
     def get_broker_health(self):        
         connection = live_connection_manager.get_status()
         
