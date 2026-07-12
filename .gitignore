@@ -28,3 +28,4 @@ __pycache__/
 # Tools
 tools/
 
+trade_log.csv
