@@ -15,6 +15,6 @@ for symbol in ["BTC-USD", "GC=F"]:
     print("1D  :", result["1d"])
     print("-" * 60)
     print("OVERALL :", result["overall"])
-    print("SCORE   :", result["score"])
+    print("SCORE   :", result.get("score", "N/A"))
     print()
 
