@@ -51,17 +51,12 @@ class DashboardAPI:
             "trade_history",
             []
         )
-
-
-
     def get_performance(self):
 
         return dashboard_state.snapshot().get(
             "performance",
             {}
-        )
-
-
+        )    
 
     def get_intelligence(self):
 
