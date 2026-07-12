@@ -170,4 +170,16 @@ class DashboardAPI:
         }
 
 
+
+    def get_persisted_metrics(self):
+
+        try:
+            from src.dashboard.metrics_store import metrics_store
+
+            return metrics_store.load()
+
+        except Exception:
+            return {}
+
+
 dashboard_api = DashboardAPI()
