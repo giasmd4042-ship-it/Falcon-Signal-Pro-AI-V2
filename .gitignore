@@ -1,26 +1,30 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Virtual Environment
-.venv/
-venv/
 
 # Environment
 .env
+.venv/
 
-# Logs
-logs/
-*.log
-
-# Data
+# Runtime data
 data/
+logs/
+src/data/
 
-# IDE
-.vscode/
-.idea/
+# Dashboard backup files
+src/dashboard/*_backup.py
+src/dashboard/*_backup2.py
+src/dashboard/*_before_*.py
 
-# OS
-.DS_Store
-Thumbs.db
+# Execution / Portfolio backups
+src/execution/*_backup.py
+src/portfolio/*_backup.py
+
+# Runtime state
+dashboard_state.json
+metrics_store.json
+
+# Python
+__pycache__/
+*.pyc
+
+# Tools
+tools/
+
