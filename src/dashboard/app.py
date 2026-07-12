@@ -231,7 +231,29 @@ with perf4:
         "A"
     )
 
+st.divider()
 
+st.header("Advanced Risk Analytics")
+
+risk1, risk2, risk3 = st.columns(3)
+
+with risk1:
+    st.metric(
+        "Max Drawdown",
+        intel["max_drawdown"]
+    )
+
+with risk2:
+    st.metric(
+        "Recovery Factor",
+        intel["recovery_factor"]
+    )
+
+with risk3:
+    st.metric(
+        "Average Return",
+        intel["average_return"]
+    )
 st.divider()
 
 

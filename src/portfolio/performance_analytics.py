@@ -141,6 +141,52 @@ class PerformanceAnalytics:
 
         else:
             profit_factor = 0
+        returns = [
+            item.get(
+                "data",
+                {}
+            ).get(
+                "profit",
+                0
+            )
+            for item in trades
+        ]
+
+        max_profit = 0
+        drawdown = 0
+
+        equity = 0
+
+        for value in returns:
+            equity += value
+
+            if equity > max_profit:
+                max_profit = equity
+
+            current_drawdown = max_profit - equity
+
+            if current_drawdown > drawdown:
+                drawdown = current_drawdown
+
+
+        max_drawdown = drawdown
+
+
+        recovery_factor = (
+            round(
+                total_profit / max_drawdown,
+                2
+            )
+            if max_drawdown
+            else "INF"
+        )
+
+
+        average_return = (
+            sum(returns) / len(returns)
+            if returns
+            else 0
+        )
         best_strategy = None
 
         if strategies:
@@ -158,6 +204,9 @@ class PerformanceAnalytics:
             "average_win": average_win,
             "average_loss": average_loss,
             "profit_factor": profit_factor,
+            "max_drawdown": max_drawdown,
+            "recovery_factor": recovery_factor,
+            "average_return": average_return,
             "total_profit": total_profit,
             "strategies": strategies,
             "regimes": regimes,

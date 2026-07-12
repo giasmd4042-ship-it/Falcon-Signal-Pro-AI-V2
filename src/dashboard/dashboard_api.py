@@ -117,7 +117,8 @@ class DashboardAPI:
             ),
 
             "total_profit": performance.get(
-                "total_profit",
+      
+          "total_profit",
                 0
             ),
 
@@ -135,7 +136,20 @@ class DashboardAPI:
                 "profit_factor",
                 0
             ),
+            "max_drawdown": performance.get(
+                "max_drawdown",
+                0
+            ),
 
+            "recovery_factor": performance.get(
+                "recovery_factor",
+                0
+            ),
+
+            "average_return": performance.get(
+                "average_return",
+                0
+            ),
             "market_regime": list(
                 performance.get(
                     "regimes",
