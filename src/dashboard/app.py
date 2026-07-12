@@ -31,7 +31,7 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.64")
+st.subheader("Production Trading Dashboard V3.65")
 
 
 if dashboard_api.get_signal() is None:
@@ -146,7 +146,7 @@ with i3:
 with i4:
     st.metric(
         "Engine",
-        "V3.64"
+        "V3.65"
     )
 
 
