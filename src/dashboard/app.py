@@ -79,6 +79,25 @@ st.divider()
 
 monitor = dashboard_api.get_monitoring()
 
+account = dashboard_api.get_account_summary()
+
+st.header("Account Summary")
+
+a1, a2, a3, a4 = st.columns(4)
+
+with a1:
+    st.metric("Balance", account["balance"])
+
+with a2:
+    st.metric("Equity", account["equity"])
+
+with a3:
+    st.metric("Free Margin", account["free_margin"])
+
+with a4:
+    st.metric("Unrealized P/L", account["unrealized_pnl"])
+
+st.divider()
 
 st.header("Portfolio Monitoring")
 

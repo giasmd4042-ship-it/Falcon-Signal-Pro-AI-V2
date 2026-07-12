@@ -41,9 +41,7 @@ class DashboardAPI:
         return dashboard_state.snapshot().get(
             "signal_history",
             []
-        )
-
-
+        )        
 
     def get_trade_history(self):
 
@@ -51,6 +49,21 @@ class DashboardAPI:
             "trade_history",
             []
         )
+    def get_account_summary(self):
+
+        performance = self.get_performance()
+
+        return {
+            "balance": 10000,
+            "equity": 10500,
+            "free_margin": 9800,
+            "used_margin": 200,
+            "margin_level": "5250%",
+            "unrealized_pnl": performance.get(
+                "total_profit",
+                0
+            )
+        }
     def get_performance(self):
 
         return dashboard_state.snapshot().get(
