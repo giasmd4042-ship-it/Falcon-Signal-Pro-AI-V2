@@ -4,6 +4,9 @@ import json
 from src.core.trading_pipeline import pipeline
 from src.dashboard.dashboard_state import dashboard_state
 from src.dashboard.dashboard_api import dashboard_api
+from src.execution.live_connection_manager import live_connection_manager
+
+live_connection_manager.connect()
 
 
 def safe_json(data):
@@ -28,7 +31,7 @@ st.set_page_config(
 
 
 st.title("Falcon Signal Pro AI")
-st.subheader("Production Trading Dashboard V3.61")
+st.subheader("Production Trading Dashboard V3.63")
 
 
 if dashboard_api.get_signal() is None:
@@ -143,32 +146,12 @@ with i3:
 with i4:
     st.metric(
         "Engine",
-        "V3.61"
+        "V3.63"
     )
 
 
 st.divider()
 
-
-st.header("Signal")
-st.json(
-    safe_json(
-        dashboard_api.get_signal()
-    )
-)
-
-st.header("Broker Health")
-st.json(
-    safe_json(
-        dashboard_api.get_broker_health()
-    )
-)
-st.header("Risk Snapshot")
-st.json(
-    safe_json(
-        dashboard_api.get_risk_snapshot()
-    )
-)
 
 
 st.header("Trade History")
@@ -193,3 +176,13 @@ st.json(
         dashboard_api.get_broker_health()
     )
 )
+@st.fragment(run_every="5s")
+def live_broker_health():
+    st.header("Broker Health")
+    st.json(
+        safe_json(
+            dashboard_api.get_broker_health()
+        )
+    )
+
+live_broker_health()
