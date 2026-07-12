@@ -97,8 +97,7 @@ with a3:
 with a4:
     st.metric("Unrealized P/L", account["unrealized_pnl"])
 
-st.divider()
-
+st.divider()        
 st.header("Portfolio Monitoring")
 
 
@@ -135,6 +134,26 @@ with m4:
 
 st.divider()
 
+
+risk = dashboard_api.get_risk_level()
+
+st.header("Risk Monitoring")
+
+r1, r2 = st.columns(2)
+
+with r1:
+    st.metric(
+        "Risk Level",
+        risk["risk_level"]
+    )
+
+with r2:
+    st.metric(
+        "Exposure",
+        risk["exposure"]
+    )
+
+st.divider()
 
 intel = dashboard_api.get_intelligence()
 

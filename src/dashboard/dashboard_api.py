@@ -64,6 +64,28 @@ class DashboardAPI:
                 0
             )
         }
+    def get_risk_level(self):
+
+        risk_snapshot = self.get_risk_snapshot()
+
+        exposure = risk_snapshot.get(
+            "exposure",
+            0
+        )
+
+        if exposure >= 80:
+            level = "HIGH"
+
+        elif exposure >= 40:
+            level = "MEDIUM"
+
+        else:
+            level = "LOW"
+
+        return {
+            "risk_level": level,
+            "exposure": exposure
+        }
     def get_performance(self):
 
         return dashboard_state.snapshot().get(
